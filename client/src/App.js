@@ -3,11 +3,22 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+
+import Home from './pages/Home';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
 
 const client = new ApolloClient({
-  // uri: 'http://localhost:3001/graphql'
+  link: 'http://localhost:3001/graphql',
+  cache: new InMemoryCache(),
   request: operation => {
     const token = localStorage.getItem('id_token');
 
@@ -21,17 +32,30 @@ const client = new ApolloClient({
 });
 
 function App() {
-  return (
-    <Router>
-      <>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={SearchBooks} />
-          <Route exact path='/saved' component={SavedBooks} />
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-        </Switch>
-      </>
-    </Router>
+  
+    return (
+      <ApolloProvider client={client}>
+        <div className="flex-column justify-flex-start min-100-vh">
+          <header className="bg-secondary mb-4 py-2 flex-row align-center">
+            <div className="container flex-row justify-space-between-lg justify-center align-center">
+              <h1>GraphQL Library</h1>
+            </div>
+          </header>
+          <div className="container">
+            <Home />
+          </div>
+        </div>
+      </ApolloProvider>
+    // <Router>
+    //   <>
+    //     <Navbar />
+    //     <Switch>
+    //       <Route exact path='/' component={SearchBooks} />
+    //       <Route exact path='/saved' component={SavedBooks} />
+    //       <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+    //     </Switch>
+    //   </>
+    // </Router>
   );
 }
 

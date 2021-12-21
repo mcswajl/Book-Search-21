@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SearchBooks from './pages/SearchBooks';
-import SavedBooks from './pages/SavedBooks';
-import Navbar from './components/Navbar';
+// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// import SearchBooks from './pages/SearchBooks';
+// import SavedBooks from './pages/SavedBooks';
+// import Navbar from './components/Navbar';
 import {
   ApolloClient,
   InMemoryCache,
@@ -13,11 +13,11 @@ import {
 // import Home from './pages/Home';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 const client = new ApolloClient({
-  link: 'http://localhost:3001/graphql',
+  link: httpLink,
   cache: new InMemoryCache(),
   request: operation => {
     const token = localStorage.getItem('id_token');
@@ -46,6 +46,8 @@ function App() {
           </div>
         </div>
       </ApolloProvider>
+
+    //   return (
     // <Router>
     //   <>
     //     <Navbar />
@@ -56,6 +58,7 @@ function App() {
     //     </Switch>
     //   </>
     // </Router>
+      
   );
 }
 

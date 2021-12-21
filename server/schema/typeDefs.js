@@ -12,6 +12,14 @@ type Mutation {
   saveBook(input: savedBook!): User
   removeBook(bookId: ID!): User
 }
+input savedBook {
+  bookId: String
+  authors: [String]
+  description: String
+  title: String
+  image: String
+  
+}
 
 type User {
   _id: ID!

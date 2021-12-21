@@ -5,7 +5,7 @@ import Auth from '../utils/auth';
 import { SAVE_BOOK } from '../utils/mutations';
 import {useMutation} from '@apollo/react-hooks';
 
-import { saveBook, searchGoogleBooks } from '../utils/API';
+import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
@@ -70,7 +70,7 @@ const SearchBooks = () => {
 
     try {
       const { data } = await saveBook({
-        variables: { bookData: { ...bookToSave } }
+        variables: { input: { ...bookToSave } }
       });
       
 

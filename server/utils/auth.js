@@ -11,14 +11,16 @@ module.exports = {
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
   // function for our authenticated routes
-  authMiddleware: function (req, res, next) {
+  authMiddleware: function ({req}) {
+    console.log(req)
     // allows token to be sent via  req.query or headers
     let token = req.query.token || req.headers.authorization;
 
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
-    }
+      }
+      console.log(token)
 
     if (!token) {
       return req;

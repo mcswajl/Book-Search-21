@@ -10,7 +10,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 
-import Home from './pages/Home';
+// import Home from './pages/Home';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -42,7 +42,7 @@ function App() {
             </div>
           </header>
           <div className="container">
-            <Home />
+           
           </div>
         </div>
       </ApolloProvider>

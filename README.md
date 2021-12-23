@@ -1,22 +1,15 @@
 ## 21 MERN: Book Search Engine
-Your Challenge this week is emblematic of the fact that most modern websites are driven by two things: data and user demands. This shouldn't come as a surprise, as the ability to personalize user data is the cornerstone of real-world web development today. And as user demands evolve, applications need to be more performant.
-This week, you’ll take a fully functioning Google Books API search engine built with a RESTful API, and refactor it to be a GraphQL API built with Apollo Server. The app was built using the MERN stack, with a React front end, MongoDB database, and Node.js/Express.js server and API. It's already set up to allow users to save book searches to the back end.
-To fulfill the Challenge, you’ll need to do the following:
+My challenge this week was to learn that most modern websites are driven by two things: data and user demands. This was not a surprise, personalizing user data is the cornerstone of real-world web development today. 
+This past week, I took a fully functioning Google Books API search engine built with a RESTful API, and refactor it to be a GraphQL API built with Apollo Server. My app was built using the MERN (MongoDB Express React Node) stack, with a React front end, MongoDB database, and Node.js/Express.js server and API. My starter code was already set up to allow users to save book searches to the back end.
+To be succesful in this challenge I had accomplish the following steps:
 
+1. Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
 
-Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
+2. Modify the existing authentication middleware so that it works in the context of a GraphQL API.
 
+3. Use Apollo Client to create an Apollo Provider so that requests can communicate with an Apollo Server.
 
-Modify the existing authentication middleware so that it works in the context of a GraphQL API.
-
-
-Use Apollo Client to create an Apollo Provider so that requests can communicate with an Apollo Server.
-
-
-Deploy the application to Heroku using a MongoDB database hosted at MongoDB Atlas.
-
-
-Before you start, clone the starter code.
+4. Deploy the application to Heroku using a MongoDB database hosted at MongoDB Atlas.
 
 ## User Story
 AS AN avid reader
@@ -54,185 +47,109 @@ THEN that book is deleted from my saved books list
 WHEN I click on the Logout button
 THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
 
-## Mock-Up
-Let's start by revisiting the web application's appearance and functionality.
-As you can see in the following animation, a user can type a search term (in this case, "star wars") in a search box and the results appear:
+## Mock-Up  and screenshot of my deployed application
+![screenshot](./images/screenshot.jpg)
 
-The user can save books by clicking "Save This Book!" under each search result, as shown in the following animation:
+![Screenshot](./images/Gif.gif)
 
-A user can view their saved books on a separate page, as shown in the following animation:
-
-
-## Getting Started
-In order for this application to use a GraphQL API, you’ll need to refactor the API to use GraphQL on the back end and add some functionality to the front end. The following sections contain details about the files you’ll need to modify on the back end and the front end.
 
 # Back-End Specifications
-You’ll need to complete the following tasks in each of these back-end files:
+I was provided the following tasks for each of my back-end files:
 
 
-auth.js: Update the auth middleware function to work with the GraphQL API.
+1. auth.js: Update the auth middleware function to work with the GraphQL API.
+
+2. server.js: Implement the Apollo Server and apply it to the Express server as middleware.
+
+## My Schemas directory:
+
+1. index.js: Export your typeDefs and resolvers.
+
+2. resolvers.js: Define the query and mutation functionality to work with the Mongoose models.
+
+3. typeDefs.js: Define the necessary Query and Mutation types:
+
+## My Query type:
+
+1. me: Which returns a User type.
+
+## My Mutation type:
+
+1. login: Accepts an email and password as parameters; returns an Auth type.
 
 
-server.js: Implement the Apollo Server and apply it to the Express server as middleware.
-
-## Schemas directory:
+2. addUser: Accepts a username, email, and password as parameters; returns an Auth type.
 
 
-index.js: Export your typeDefs and resolvers.
+3. saveBook: Accepts a book author's array, description, title, bookId, image, and link as  parameters; returns a User type. (Look into creating what's known as an input type to handle all of these parameters!)
 
+4. removeBook: Accepts a book's bookId as a parameter; returns a User type.
 
-resolvers.js: Define the query and mutation functionality to work with the Mongoose models.
-
-Hint: Use the functionality in the user-controller.js as a guide.
-
-
-
-typeDefs.js: Define the necessary Query and Mutation types:
-
-
-Query type:
-
-
-me: Which returns a User type.
-
-
-
-Mutation type:
-
-
-login: Accepts an email and password as parameters; returns an Auth type.
-
-
-addUser: Accepts a username, email, and password as parameters; returns an Auth type.
-
-
-saveBook: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a User type. (Look into creating what's known as an input type to handle all of these parameters!)
-
-
-removeBook: Accepts a book's bookId as a parameter; returns a User type.
-
-
-
-
-User type:
-
+## My User type:
 
 _id
-
-
 username
-
-
 email
-
-
 bookCount
-
-
 savedBooks (This will be an array of the Book type.)
 
-
-
-
-Book type:
-
+## My Book type:
 
 bookId (Not the _id, but the book's id value returned from Google's Book API.)
-
-
 authors (An array of strings, as there may be more than one author.)
-
-
 description
-
-
 title
-
-
 image
-
-
 link
 
-
-
-
-Auth type:
-
+## My Auth type:
 
 token
-
-
 user (References the User type.)
 
 
-## Front-End Specifications
+## My Front-End Specifications
 You'll need to create the following front-end files:
 
 
-queries.js: This will hold the query GET_ME, which will execute the me query set up using Apollo Server.
+1. queries.js: This will hold the query GET_ME, which will execute the me query set up using Apollo Server.
+
+2. mutations.js:
+
+3. LOGIN_USER will execute the loginUser mutation set up using Apollo Server.
+
+4. ADD_USER will execute the addUser mutation.
+
+5. SAVE_BOOK will execute the saveBook mutation.
+
+6. REMOVE_BOOK will execute the removeBook mutation.
+
+Additionally, I had to complete the following tasks in each of my front-end files:
 
 
-mutations.js:
+1. App.js: Using ApolloClient, InMemoryCache, createHttpLink, and setContext from the Apollo Client library, create an Apollo Provider to make every request work with the Apollo server.
 
-
-LOGIN_USER will execute the loginUser mutation set up using Apollo Server.
-
-
-ADD_USER will execute the addUser mutation.
-
-
-SAVE_BOOK will execute the saveBook mutation.
-
-
-REMOVE_BOOK will execute the removeBook mutation.
-
-
-
-
-Additionally, you’ll need to complete the following tasks in each of these front-end files:
-
-
-App.js: Using ApolloClient, InMemoryCache, createHttpLink, and setContext from the Apollo Client library, create an Apollo Provider to make every request work with the Apollo server.
-
-
-SearchBooks.js:
-
-
+2. SearchBooks.js:
 Use the Apollo useMutation() Hook to execute the SAVE_BOOK mutation in the handleSaveBook() function instead of the saveBook() function imported from the API file. Define and export the SAVE_BOOK mutation in a new file at /client/src/utils/mutations.js.
 
 
-Make sure you keep the logic for saving the book's ID to state in the try...catch block!
+3. SavedBooks.js:
 
-
-
-
-SavedBooks.js:
-
-
-Remove the useEffect() Hook that sets the state for UserData.
-
-
+4. Remove the useEffect() Hook that sets the state for UserData.
 Instead, use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData. Define and export the GET_ME query in a new file at /client/src/utils/queries.js.
 
+5. Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function instead of the deleteBook() function that's imported from API file. Define and export the REMOVE_BOOK mutation in a new file at /client/src/utils/mutations.js. (Make sure you keep the removeBookId() function in place!)
 
-Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function instead of the deleteBook() function that's imported from API file. Define and export the REMOVE_BOOK mutation in a new file at /client/src/utils/mutations.js. (Make sure you keep the removeBookId() function in place!)
+6. SignupForm.js: Replace the addUser() functionality imported from the API file with the ADD_USER mutation functionality. Define and export the ADD_USER mutation in a new file at /client/src/utils/mutations.js.
 
+7. LoginForm.js: Replace the loginUser() functionality imported from the API file with the LOGIN_USER mutation functionality. Define and export the LOGIN_USER mutation in a new file at /client/src/utils/mutations.js.
 
+## Links to my GitHub repo and my deployed App.
 
+https://book-search-uncc.herokuapp.com/ application on Heroku.
 
-SignupForm.js: Replace the addUser() functionality imported from the API file with the ADD_USER mutation functionality. Define and export the ADD_USER mutation in a new file at /client/src/utils/mutations.js.
+https://github.com/mcswajl/Book-Search-21 GitHub repository.
 
-
-LoginForm.js: Replace the loginUser() functionality imported from the API file with the LOGIN_USER mutation functionality. Define and export the LOGIN_USER mutation in a new file at /client/src/utils/mutations.js.
-
-
-
-## Review
-You are required to submit BOTH of the following for review:
-
-
-The URL of the functional, deployed application on Heroku.
-
-
-The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
+## Contact
+Joshua L. McSwain
+joshua.mcswain@mecklenburgcountync.gov

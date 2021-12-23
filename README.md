@@ -12,7 +12,7 @@ To be succesful in this challenge I had accomplish the following steps:
 4. Deploy the application to Heroku using a MongoDB database hosted at MongoDB Atlas.
 
 ##### Table of Contents  
-[Headers](#headers)  
+[Headers](#User Story)  
 [Emphasis](#emphasis)  
 ...snip...    
 <a name="headers"/>

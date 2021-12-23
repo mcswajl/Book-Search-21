@@ -11,6 +11,13 @@ To be succesful in this challenge I had accomplish the following steps:
 
 4. Deploy the application to Heroku using a MongoDB database hosted at MongoDB Atlas.
 
+##### Table of Contents  
+[Headers](#headers)  
+[Emphasis](#emphasis)  
+...snip...    
+<a name="headers"/>
+## Headers
+
 ## User Story
 AS AN avid reader
 I WANT to search for new books to read
